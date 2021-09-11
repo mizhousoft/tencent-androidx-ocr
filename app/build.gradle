@@ -1,0 +1,84 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        applicationId "com.mizhousoft.ocr.demo"
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode 100
+        versionName "1.0.0"
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+    }
+
+    signingConfigs {
+        debugx {
+            storeFile file("../keystore/usmartcloud.jks")
+            storePassword "usmartcloud"
+            keyAlias "usmartcloud"
+            keyPassword "usmartcloud"
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+
+        release {
+            storeFile file("../keystore/usmartcloud.jks")
+            storePassword "usmartcloud"
+            keyAlias "usmartcloud"
+            keyPassword "usmartcloud"
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+            minifyEnabled false
+            shrinkResources false
+            zipAlignEnabled true
+            signingConfig signingConfigs.debugx
+        }
+
+        release {
+            debuggable false
+            minifyEnabled true
+            shrinkResources true
+            zipAlignEnabled true
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+configurations.all {
+    resolutionStrategy.cacheDynamicVersionsFor 1, 'minutes' // 动态版本
+    resolutionStrategy.cacheChangingModulesFor 1, 'minutes' // 变化模块
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(includes: ['*.jar'], dir: 'src/main/jniLibs')
+
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
+
+    implementation 'com.mizhousoft.androidx:androidx-widget:1.0.0-SNAPSHOT'
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    implementation project(path: ':library')
+}

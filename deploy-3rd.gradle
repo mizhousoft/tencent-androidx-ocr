@@ -1,0 +1,23 @@
+apply plugin: 'maven-publish'
+
+publishing {
+    repositories {
+        maven {
+            credentials {
+                username "${releaseGradleUsername}"
+                password "${releaseGradlePassword}"
+            }
+            url "${releaseRepoUrl}"
+        }
+    }
+
+    publications {
+        component(MavenPublication) {
+            groupId 'com.mizhousoft.thirdparty'
+            artifactId 'androidx-tencent-ocr'
+            version '1.0.8.1'
+
+            artifact '3rdparty-libs/OcrSDKv1.0.8.1-release.aar'
+        }
+    }
+}
