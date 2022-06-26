@@ -1,29 +1,33 @@
-apply plugin: 'com.android.library'
-apply plugin: 'maven'
+apply plugin: 'maven-publish'
 
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: "${snapshotRepoUrl}") {
-                authentication(
-                        userName: "${snapshotGradleUsername}",
-                        password: "${snapshotGradlePassword}"
-                )
-            }
+apply from: "../version.gradle"
+apply from: "../credentials.gradle"
 
-            pom.version = "${libraryVersion}"
-            pom.artifactId = "${libraryArtifactId}"
-            pom.groupId = "${libraryGroup}"
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    archiveClassifier.set('sources')
+}
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId = "${libraryGroup}"
+            artifactId = "${libraryArtifactId}"
+            version = "${libraryVersion}"
+
+            afterEvaluate { artifact(tasks.getByName("bundleReleaseAar")) }
+            artifact sourcesJar
         }
     }
-}
 
-// 源代码一起打包
-task androidSourcesJar(type: Jar) {
-    archiveClassifier.set('sources')
-    from android.sourceSets.main.java.srcDirs
-}
+    repositories {
+        maven {
+            url = "${snapshotRepoUrl}"
 
-artifacts {
-    archives androidSourcesJar
+            credentials {
+                username = "${snapshotGradleUsername}"
+                password = "${snapshotGradlePassword}"
+            }
+        }
+    }
 }

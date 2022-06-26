@@ -1,2 +1,46 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://repo.huaweicloud.com/repository/maven' }
+        maven { url 'https://developer.huawei.com/repo/' }
+    }
+}
+
+dependencyResolutionManagement {
+    apply from: "credentials.gradle"
+
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://repo.huaweicloud.com/repository/maven' }
+        maven { url 'https://jitpack.io' }
+        maven { url 'https://developer.huawei.com/repo/'}
+
+        mavenCentral()
+
+        maven {
+            url "${snapshotRepoUrl}"
+            credentials {
+                username = "${snapshotGradleUsername}"
+                password = "${snapshotGradlePassword}"
+            }
+        }
+
+        maven {
+            url "${releaseRepoUrl}"
+            credentials {
+                username = "${releaseGradleUsername}"
+                password = "${releaseGradlePassword}"
+            }
+        }
+    }
+}
+
 include ':app', ':library'
 rootProject.name = "Tencent OCR"
