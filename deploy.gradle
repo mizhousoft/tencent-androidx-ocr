@@ -17,6 +17,18 @@ publishing {
 
             afterEvaluate { artifact(tasks.getByName("bundleReleaseAar")) }
             artifact sourcesJar
+
+            pom.withXml {
+                def dependenciesNode = asNode().appendNode('dependencies')
+                configurations.implementation.allDependencies.each { dependency ->
+                    if (!"unspecified".equals(dependency.name)) {
+                        def dependencyNode = dependenciesNode.appendNode('dependency')
+                        dependencyNode.appendNode('groupId', dependency.group)
+                        dependencyNode.appendNode('artifactId', dependency.name)
+                        dependencyNode.appendNode('version', dependency.version)
+                    }
+                }
+            }
         }
     }
 
