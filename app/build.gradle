@@ -3,6 +3,8 @@ plugins {
 }
 
 android {
+    namespace 'com.mizhousoft.ocr.demo'
+
     compileSdk 32
 
     defaultConfig {

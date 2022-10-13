@@ -5,6 +5,8 @@ plugins {
 apply from: "../deploy.gradle"
 
 android {
+    namespace 'com.mizhousoft.ocr'
+
     compileSdk 32
 
     defaultConfig {
@@ -20,7 +22,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
 }
 
 dependencies {
