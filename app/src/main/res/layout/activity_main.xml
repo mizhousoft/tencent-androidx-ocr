@@ -6,11 +6,11 @@
     android:orientation="vertical">
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_play_video"
+        android:id="@+id/btn_vin_query"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15.0dip"
-        android:onClick="gotoPlayVideo"
+        android:onClick="gotoVinQueryView"
         android:text="查询车架号"
         android:textColor="@color/ocr_white"
         android:textSize="15.0sp" />

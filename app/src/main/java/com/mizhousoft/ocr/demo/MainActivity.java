@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity
         SimplexToast.init(this);
     }
 
-    public void gotoPlayVideo(View view)
+    public void gotoVinQueryView(View view)
     {
         VinQueryActivity.startActivity(this);
     }

@@ -30,45 +30,48 @@ public class OCRClient
         OcrSDKKit.getInstance().updateFederationToken(secretId, secretKey, tempToken);
     }
 
-    public static void start(Activity activity, final OCRResultListener listener)
+    public static void start(Activity activity, final OCRResultListener listener, String tips, boolean tipsIconHidden)
     {
         CustomConfigUi configUi = new CustomConfigUi();
         configUi.setLandscape(false);
         configUi.setLightImageOffResId(R.drawable.ocr_flash_off);
         configUi.setLightImageOnResId(R.drawable.ocr_flash_on);
         configUi.setTakePicturesResId(R.drawable.ocr_ic_take_photo_open);
-        configUi.setShowTips(false);
+        configUi.setShowTips(null != tips);
         configUi.setShowTitleBar(false);
         configUi.setShowStatusBar(false);
+        configUi.setShowTipsText(tips);
+        configUi.setShowTipsIcon(!tipsIconHidden);
 
-        OcrSDKKit.getInstance().startProcessOcrResultEntity(activity, OcrType.VinOCR, configUi, VinOcrResult.class, new ISdkOcrEntityResultListener<VinOcrResult>()
-        {
-            @Override
-            public void onProcessSucceed(VinOcrResult vinOcrResult, OcrProcessResult ocrProcessResult)
-            {
-                Log.i("OCR", "carLicensePlate: " + vinOcrResult.getVin());
-
-                if (null != listener)
+        OcrSDKKit.getInstance()
+                .startProcessOcrResultEntity(activity, OcrType.VinOCR, configUi, VinOcrResult.class, new ISdkOcrEntityResultListener<VinOcrResult>()
                 {
-                    String base64Str = ocrProcessResult.getImageBase64Str();
+                    @Override
+                    public void onProcessSucceed(VinOcrResult vinOcrResult, OcrProcessResult ocrProcessResult)
+                    {
+                        Log.i("OCR", "carLicensePlate: " + vinOcrResult.getVin());
 
-                    listener.onSucceed(vinOcrResult.getVin(), base64Str, vinOcrResult.getRequestId());
-                }
-            }
+                        if (null != listener)
+                        {
+                            String base64Str = ocrProcessResult.getImageBase64Str();
 
-            @Override
-            public void onProcessFailed(String errorCode, String message, OcrProcessResult ocrProcessResult)
-            {
-                String requestId = ocrProcessResult.getRequestId();
+                            listener.onSucceed(vinOcrResult.getVin(), base64Str, vinOcrResult.getRequestId());
+                        }
+                    }
 
-                Log.e("OCR", "requestId: " + requestId + ", errorCode: " + errorCode + ", message:" + message);
+                    @Override
+                    public void onProcessFailed(String errorCode, String message, OcrProcessResult ocrProcessResult)
+                    {
+                        String requestId = ocrProcessResult.getRequestId();
 
-                if (!"OcrSdk.UserCancelOcr".equals(errorCode) && null != listener)
-                {
-                    listener.onFailed(errorCode, message, requestId);
-                }
-            }
-        });
+                        Log.e("OCR", "requestId: " + requestId + ", errorCode: " + errorCode + ", message:" + message);
+
+                        if (!"OcrSdk.UserCancelOcr".equals(errorCode) && null != listener)
+                        {
+                            listener.onFailed(errorCode, message, requestId);
+                        }
+                    }
+                });
     }
 
     public static void release()

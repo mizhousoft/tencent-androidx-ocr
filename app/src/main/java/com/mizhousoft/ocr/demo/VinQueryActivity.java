@@ -76,7 +76,7 @@ public class VinQueryActivity extends ToolbarActivity
             {
                 SimplexToast.show("识别车架号失败");
             }
-        });
+        }, null, false);
     }
 
     public void queryVin(View view)
