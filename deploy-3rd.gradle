@@ -23,25 +23,25 @@ publishing {
         ocr_public(MavenPublication) {
             groupId 'com.mizhousoft.thirdparty'
             artifactId 'androidx-tencent-ocr-public'
-            version '2.0.0.9'
+            version '2.0.0.14'
 
-            artifact '3rdparty-libs/OcrSDK-public-v2.0.0.9-release.aar'
+            artifact '3rdparty-libs/OcrSDK-public-v2.0.0.14-release.aar'
         }
 
         ai_aicamera(MavenPublication) {
             groupId 'com.mizhousoft.thirdparty'
             artifactId 'androidx-tencent-ai-aicamera'
-            version '1.0.24'
+            version '1.0.27'
 
-            artifact '3rdparty-libs/tencent-ai-sdk-aicamera-1.0.24-release.aar'
+            artifact '3rdparty-libs/tencent-ai-sdk-aicamera-1.0.27-release.aar'
         }
 
         ai_common(MavenPublication) {
             groupId 'com.mizhousoft.thirdparty'
             artifactId 'androidx-tencent-ai-common'
-            version '1.1.43'
+            version '1.1.48'
 
-            artifact '3rdparty-libs/tencent-ai-sdk-common-1.1.43-release.aar'
+            artifact '3rdparty-libs/tencent-ai-sdk-common-1.1.48-release.aar'
         }
     }
 }
