@@ -64,7 +64,7 @@ dependencies {
     implementation fileTree(includes: ['*.jar'], dir: 'src/main/jniLibs')
 
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.10.0'
+    implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     implementation 'com.mizhousoft.androidx:androidx-widget:1.0.0-SNAPSHOT'
