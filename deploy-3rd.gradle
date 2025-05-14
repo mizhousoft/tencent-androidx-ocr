@@ -23,9 +23,9 @@ publishing {
         ocr_public(MavenPublication) {
             groupId 'com.mizhousoft.thirdparty'
             artifactId 'androidx-tencent-ocr-public'
-            version '2.0.0.19'
+            version '2.0.0.30'
 
-            artifact '3rdparty-libs/OcrSDK-public-v2.0.0.19-release.aar'
+            artifact '3rdparty-libs/OcrSDK-public-v2.0.0.30-release.aar'
         }
 
         ai_aicamera(MavenPublication) {
