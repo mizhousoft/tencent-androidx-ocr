@@ -33,18 +33,15 @@ dependencyResolutionManagement {
         mavenCentral()
 
         maven {
-            url "${snapshotRepoUrl}"
-            credentials {
-                username = "${snapshotGradleUsername}"
-                password = "${snapshotGradlePassword}"
-            }
-        }
-
-        maven {
             url "${releaseRepoUrl}"
-            credentials {
-                username = "${releaseGradleUsername}"
-                password = "${releaseGradlePassword}"
+
+            credentials(HttpHeaderCredentials) {
+                name = "Authorization"
+                value = "token ${snapshotAccessToken}"
+            }
+
+            authentication {
+                header(HttpHeaderAuthentication)
             }
         }
     }

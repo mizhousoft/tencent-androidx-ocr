@@ -3,11 +3,17 @@ apply plugin: 'maven-publish'
 publishing {
     repositories {
         maven {
-            credentials {
-                username "${releaseGradleUsername}"
-                password "${releaseGradlePassword}"
+            name = "Gitea"
+            url = "${releaseRepoUrl}"
+
+            credentials(HttpHeaderCredentials) {
+                name = "Authorization"
+                value = "token ${releaseAccessToken}"
             }
-            url "${releaseRepoUrl}"
+
+            authentication {
+                header(HttpHeaderAuthentication)
+            }
         }
     }
 

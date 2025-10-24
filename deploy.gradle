@@ -3,7 +3,7 @@ apply plugin: 'maven-publish'
 apply from: "../version.gradle"
 apply from: "../credentials.gradle"
 
-task sourcesJar(type: Jar) {
+tasks.register('sourcesJar', Jar) {
     from android.sourceSets.main.java.srcDirs
     archiveClassifier.set('sources')
 }
@@ -34,11 +34,16 @@ publishing {
 
     repositories {
         maven {
+            name = "Gitea"
             url = "${snapshotRepoUrl}"
 
-            credentials {
-                username = "${snapshotGradleUsername}"
-                password = "${snapshotGradlePassword}"
+            credentials(HttpHeaderCredentials) {
+                name = "Authorization"
+                value = "token ${snapshotAccessToken}"
+            }
+
+            authentication {
+                header(HttpHeaderAuthentication)
             }
         }
     }
